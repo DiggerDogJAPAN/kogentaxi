@@ -1,0 +1,137 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import StickyCallButton from '../components/StickyCallButton.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  lang?: 'ja' | 'en';
+  canonicalPath?: string;
+  ogImage?: string;
+}
+
+const { 
+  title, 
+  description, 
+  lang = 'ja', 
+  canonicalPath = '', 
+  ogImage = '/images/cars.jpg' // Default to fleet visual as OG image
+} = Astro.props;
+
+const siteUrl = 'https://myokokogentaxi.com';
+const canonicalUrl = `${siteUrl}${canonicalPath.endsWith('/') ? canonicalPath : canonicalPath + '/'}`;
+
+// JSON-LD LocalBusiness metadata schema for Search Engine & AI Search Engine optimization
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "TaxiService",
+  "name": lang === 'ja' ? "高原タクシー株式会社" : "Kogen Taxi Co., Ltd.",
+  "image": `${siteUrl}/images/office.jpg`,
+  "@id": `${siteUrl}/#taxi-service`,
+  "url": siteUrl,
+  "telephone": "+81-255-86-3141",
+  "faxNumber": "+81-255-86-2287",
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "田口321-2",
+    "addressLocality": "妙高市",
+    "addressRegion": "新潟県",
+    "postalCode": "949-2106",
+    "addressCountry": "JP"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 36.871167,
+    "longitude": 138.257039
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ],
+    "opens": "06:00",
+    "closes": "23:30"
+  },
+  "areaServed": [
+    {
+      "@type": "AdministrativeArea",
+      "name": "妙高市"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "赤倉温泉"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "妙高杉ノ原"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "関温泉"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "燕温泉"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "笹ヶ峰"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "妙高高原駅"
+    }
+  ]
+};
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/images/logo.svg" />
+    
+    <!-- Canonical & Technical SEO -->
+    <link rel="canonical" href={canonicalUrl} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${siteUrl}${ogImage}`} />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalUrl} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={`${siteUrl}${ogImage}`} />
+    
+    <!-- Structured Metadata (AI & Search Discovery) -->
+    <script type="application/ld+json" is:raw set:html={JSON.stringify(schema)} />
+  </head>
+  <body>
+    <Header lang={lang} currentPath={Astro.url.pathname} />
+    
+    <slot />
+    
+    <Footer lang={lang} />
+    
+    <StickyCallButton lang={lang} />
+  </body>
+</html>

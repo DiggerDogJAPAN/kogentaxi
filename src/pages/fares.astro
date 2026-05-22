@@ -1,0 +1,772 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const pageTitle = "タクシー料金表 | 高原タクシー株式会社 | 妙高高原駅・関山駅発着運賃";
+const pageDescription = "妙高高原駅および関山駅から主要目的地（赤倉温泉、杉ノ原、笹ヶ峰、苗名滝、戸隠、上越妙高駅、斑尾高原等）へのタクシー目安料金表です。春・夏・秋の通常期料金と冬期割増運賃を分かりやすく掲載。メーター基本料金やキャンセルポリシー、公式料金表PDFもダウンロード可能です。";
+
+// Pricing Data from Myoko-Kogen Station (妙高高原駅)
+const myokokogenFares = [
+  { dest: "戸隠 (Togakushi)", summer: 11200, winter: 13400 },
+  { dest: "長野駅 (Nagano Station)", summer: 14700, winter: 17700 },
+  { dest: "一茶記念館 (Issa Memorial Museum)", summer: 4500, winter: 5500 },
+  { dest: "黒姫コスモスプラザ / 黒姫高原 (Kurohime Cosmos Plaza / Kogen)", summer: 5100, winter: 6100 },
+  { dest: "笹ヶ峰 (Sasagamine)", summer: 8800, winter: null }, // Closed in winter!
+  { dest: "苗名滝 (Naena Falls)", summer: 4200, winter: null }, // Closed in winter!
+  { dest: "杉野沢 (Suginosawa)", summer: 3300, winter: 4100 },
+  { dest: "池の平 (Ikenotaira)", summer: 2300, winter: 2800 },
+  { dest: "赤倉 (Akakura)", summer: 2600, winter: 3200 },
+  { dest: "関 (Seki)", summer: 4200, winter: 6500 },
+  { dest: "燕 (Tsubame)", summer: 5600, winter: 8000 },
+  { dest: "上越妙高駅 (Joetsu-Myoko Station)", summer: 12200, winter: 14600 },
+  { dest: "野尻湖 (Nojiri Lake)", summer: 3200, winter: 3900 },
+  { dest: "関山駅 (Sekiyama Station)", summer: 4000, winter: 4800 },
+  { dest: "アパリゾート (Apa Resort)", summer: 8100, winter: 9800 },
+  { dest: "東急タングラム (Tangram)", summer: 4300, winter: 5200 },
+  { dest: "斑尾高原 (Madarao Kogen)", summer: 7000, winter: 8300 },
+];
+
+// Pricing Data from Sekiyama Station (関山駅)
+const sekiyamaFares = [
+  { dest: "アパリゾート (Apa Resort)", summer: 4400, winter: 5300 },
+  { dest: "とまと (Tomato)", summer: 1600, winter: 1700 },
+  { dest: "大洞原 (Obarabara)", summer: 2100, winter: null },
+  { dest: "妙高スキーパーク (Myoko Ski Park)", summer: null, winter: 3400 }, // Winter only!
+  { dest: "青少年自然の家 (Youth Center)", summer: 2300, winter: 2800 },
+  { dest: "妙高高原駅 (Myokokogen Station)", summer: 4000, winter: 4700 },
+  { dest: "松ヶ峰遊園地 (Matsugamine)", summer: 1700, winter: 1900 },
+  { dest: "休暇村妙高 (Kyukamura Myoko)", summer: 3100, winter: 3600 },
+  { dest: "赤倉 (Akakura)", summer: 4400, winter: 5200 },
+  { dest: "池の平 (Ikenotaira)", summer: 5400, winter: 6400 },
+  { dest: "関 (Seki)", summer: 3500, winter: 4200 },
+  { dest: "燕 (Tsubame)", summer: 4700, winter: 5600 },
+  { dest: "上越妙高駅 (Joetsu-Myoko Station)", summer: 9200, winter: 10900 },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} lang="ja" canonicalPath="/fares/">
+
+  <!-- Page Header -->
+  <section class="page-hero">
+    <div class="container text-center">
+      <span class="section-subtitle">料金プラン</span>
+      <h1 class="page-title">タクシー料金表</h1>
+      <p class="page-lead">妙高高原地区の主な目的地への目安料金・基本メーター料金をご案内いたします。</p>
+    </div>
+  </section>
+
+  <!-- Fares Content -->
+  <section class="fares-section section-padding">
+    <div class="container">
+      
+      <!-- Caution banner / cancellation policy -->
+      <div class="cancellation-policy">
+        <div class="policy-header">
+          <span class="policy-icon">⚠️</span>
+          <h3>料金に関する注意事項・キャンセルポリシー</h3>
+        </div>
+        <div class="policy-body">
+          <p><strong>表示料金は、おおよその目安料金になります。</strong>実際の走行ルートや交通状況等により前後する場合がございます。</p>
+          <ul>
+            
+            <li><strong>キャンセル料金：</strong>予約時間の24時間前から予約時間直前までのキャンセルは<strong>50%</strong>、予約時間以降のキャンセルまたは連絡なしの不乗車は<strong>100%</strong>のキャンセル料を申し受けます。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Dashboard Tabs Navigation -->
+      <div class="fares-dashboard">
+        <div class="tabs-nav" role="tablist">
+          <button class="tab-btn active" role="tab" aria-selected="true" data-target="myokokogen-tab">
+            妙高高原駅発着 料金表
+          </button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-target="sekiyama-tab">
+            関山駅発着 料金表
+          </button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-target="meter-tab">
+            メーター基本料金
+          </button>
+        </div>
+
+        <!-- Dashboard Content Panels -->
+        <div class="tabs-content">
+          
+          <!-- TAB 1: Myoko-Kogen Station -->
+          <div id="myokokogen-tab" class="tab-panel active" role="tabpanel">
+            <div class="panel-header">
+              <div class="panel-title-area">
+                <h3>妙高高原駅発着の目安料金</h3>
+                <p>各主要観光スポット・宿泊エリアまでの片道運賃目安（普通車・4人乗り）</p>
+              </div>
+              
+              <!-- Season Toggles -->
+              <div class="season-toggle-wrap">
+                <span class="toggle-label">表示シーズン:</span>
+                <div class="season-toggle-group">
+                  <button class="season-btn active" data-season="summer">通常料金 (春〜秋)</button>
+                  <button class="season-btn" data-season="winter">冬期割増料金</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-wrapper">
+              <table class="table-custom table-fares">
+                <thead>
+                  <tr>
+                    <th>目的地</th>
+                    <th class="text-right">通常料金 (春・夏・秋)</th>
+                    <th class="text-right">冬期割増料金</th>
+                    <th class="text-center">備考</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {myokokogenFares.map(fare => (
+                    <tr class="fare-row">
+                      <td><strong>{fare.dest.split(' (')[0]}</strong> <span class="dest-en">{fare.dest.includes('(') ? `(${fare.dest.split(' (')[1]}` : ''}</span></td>
+                      <td class="text-right fare-val val-summer">￥{fare.summer.toLocaleString()}</td>
+                      <td class="text-right fare-val val-winter">{fare.winter ? `￥${fare.winter.toLocaleString()}` : <span class="closed-label">冬期閉鎖</span>}</td>
+                      <td class="text-center">
+                        {!fare.winter ? <span class="badge badge-accent">冬期運休</span> : <span class="badge badge-primary">年中運行</span>}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <!-- PDF Download Area -->
+            <div class="pdf-download-area">
+              <h4>高原タクシー公式 料金表PDFダウンロード</h4>
+              <p>手元に保存したり、印刷して携帯できる公式料金表PDF（通常期用・冬期割増期用）をご案内しております。</p>
+              <div class="pdf-btn-group">
+                <a href="/documents/standard-fares-2025.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+                  通常期（春・夏・秋）値段表PDF
+                </a>
+                <a href="/documents/winter-fares-2026.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+                  冬期割増期間 値段表PDF
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 2: Sekiyama Station -->
+          <div id="sekiyama-tab" class="tab-panel" role="tabpanel">
+            <div class="panel-header">
+              <div class="panel-title-area">
+                <h3>関山駅発着の目安料金</h3>
+                <p>アパリゾート妙高や関・燕温泉、関山駅周辺の目的地までの片道運賃目安（普通車・4人乗り）</p>
+              </div>
+              
+              <div class="season-toggle-wrap">
+                <span class="toggle-label">表示シーズン:</span>
+                <div class="season-toggle-group">
+                  <button class="season-btn active" data-season="summer">通常料金 (春〜秋)</button>
+                  <button class="season-btn" data-season="winter">冬期割増料金</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-wrapper">
+              <table class="table-custom table-fares">
+                <thead>
+                  <tr>
+                    <th>目的地</th>
+                    <th class="text-right">通常料金 (春・夏・秋)</th>
+                    <th class="text-right">冬期割増料金</th>
+                    <th class="text-center">備考</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {sekiyamaFares.map(fare => (
+                    <tr class="fare-row">
+                      <td><strong>{fare.dest.split(' (')[0]}</strong> <span class="dest-en">{fare.dest.includes('(') ? `(${fare.dest.split(' (')[1]}` : ''}</span></td>
+                      <td class="text-right fare-val val-summer">{fare.summer ? `￥${fare.summer.toLocaleString()}` : <span class="closed-label">冬期のみ</span>}</td>
+                      <td class="text-right fare-val val-winter">{fare.winter ? `￥${fare.winter.toLocaleString()}` : <span class="closed-label">冬期閉鎖</span>}</td>
+                      <td class="text-center">
+                        {!fare.summer ? <span class="badge badge-accent">冬期のみ</span> : !fare.winter ? <span class="badge badge-accent">冬期運休</span> : <span class="badge badge-primary">年中運行</span>}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <!-- PDF Download Area -->
+            <div class="pdf-download-area">
+              <h4>高原タクシー公式 料金表PDFダウンロード</h4>
+              <p>手元に保存したり、印刷して携帯できる公式料金表PDF（通常期用・冬期割増期用）をご案内しております。</p>
+              <div class="pdf-btn-group">
+                <a href="/documents/sekiyama%20summer.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+                  通常期（春・夏・秋）値段表PDF
+                </a>
+                <a href="/documents/sekiyama%20winter.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+                  冬期割増期間 値段表PDF
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3: Meter Fares -->
+          <div id="meter-tab" class="tab-panel" role="tabpanel">
+            <div class="panel-header">
+              <div class="panel-title-area">
+                <h3>距離制メーター運賃（基本料金）</h3>
+                <p>特定の区間目安料金ではなく、メーターで走行した際の上越運輸局認可の標準運賃表です。</p>
+              </div>
+            </div>
+
+            <div class="grid grid-2 meter-grid">
+              <!-- Medium car -->
+              <div class="card meter-card">
+                <div class="meter-card-header text-center">
+                  <span class="badge badge-primary">通常定員 4名様</span>
+                  <h3>普通車 (Medium)</h3>
+                  <p class="meter-sub">ホンダ フリード / シャトル / トヨタ カローラクロス</p>
+                </div>
+                <div class="meter-card-body">
+                  <div class="meter-rate-row">
+                    <span class="rate-label">初乗運賃</span>
+                    <span class="rate-val"><strong>700円</strong> (1.08kmまで)</span>
+                  </div>
+                  <div class="meter-rate-row">
+                    <span class="rate-label">加算運賃</span>
+                    <span class="rate-val">226mごとに <strong>100円</strong></span>
+                  </div>
+                  <div class="meter-rate-row">
+                    <span class="rate-label">時間距離併用運賃</span>
+                    <span class="rate-val">時速10km以下走行時、1分25秒ごとに <strong>100円</strong></span>
+                  </div>
+                  <div class="meter-rate-row">
+                    <span class="rate-label">時間制運賃</span>
+                    <span class="rate-val">30分ごとに <strong>4,150円</strong><br /><span style="font-size: 0.8rem; opacity: 0.8;">（8,300円/時間）</span></span>
+                  </div>
+                  <div class="meter-rate-row">
+                    <span class="rate-label">待料金</span>
+                    <span class="rate-val">1分25秒ごとに <strong>100円</strong></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Jumbo car -->
+              <div class="card meter-card">
+                <div class="meter-card-header text-center">
+                  <span class="badge badge-accent">グループ定員 9名様</span>
+                  <h3>ジャンボタクシー (Large)</h3>
+                  <p class="meter-sub">トヨタ ハイエースグランドキャビン</p>
+                </div>
+                <div class="meter-card-body">
+                  <div class="meter-rate-row">
+                    <span class="rate-label">初乗運賃</span>
+                    <span class="rate-val"><strong>880円</strong> (1.08kmまで)</span>
+                  </div>
+                  <div class="meter-rate-row">
+                    <span class="rate-label">加算運賃</span>
+                    <span class="rate-val">160mごとに <strong>100円</strong></span>
+                  </div>
+                  <div class="meter-rate-row">
+                    <span class="rate-label">時間距離併用運賃</span>
+                    <span class="rate-val">時速10km以下走行時、1分0秒ごとに <strong>100円</strong></span>
+                  </div>
+                  <div class="meter-rate-row">
+                    <span class="rate-label">時間制運賃</span>
+                    <span class="rate-val">30分ごとに <strong>5,700円</strong><br /><span style="font-size: 0.8rem; opacity: 0.8;">（11,400円/時間）</span></span>
+                  </div>
+                  <div class="meter-rate-row">
+                    <span class="rate-label">待料金</span>
+                    <span class="rate-val">1分0秒ごとに <strong>100円</strong></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="meter-extra-policy">
+              <h4>追加料金・オプション</h4>
+              <div class="extra-policy-grid">
+                <div class="policy-item">
+                  <h5>迎車回送料金</h5>
+                  <p>1車1回ごとに <strong>200円</strong></p>
+                </div>
+                <div class="policy-item">
+                  <h5>時間指定配車料金</h5>
+                  <p>1車1回ごとに <strong>100円</strong></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* Page Hero styles */
+  .page-hero {
+    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+    color: var(--color-bg-white);
+    padding: 5rem 0;
+    text-align: center;
+  }
+
+  .page-hero .section-subtitle {
+    color: var(--color-accent);
+  }
+
+  .page-hero h1 {
+    color: var(--color-bg-white);
+    font-size: 3rem;
+    font-weight: 900;
+  }
+
+  .page-lead {
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 700px;
+    margin: 1rem auto 0 auto;
+  }
+
+  /* Cancellation policy banner */
+  .cancellation-policy {
+    background-color: var(--color-bg-white);
+    border-left: 6px solid var(--color-accent);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: 2rem;
+    margin-bottom: 3.5rem;
+    border: 1px solid var(--color-border);
+    border-left-width: 6px;
+  }
+
+  .policy-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .policy-icon {
+    font-size: 1.75rem;
+  }
+
+  .policy-header h3 {
+    font-size: 1.25rem;
+    color: var(--color-primary-dark);
+  }
+
+  .policy-body {
+    font-size: 0.95rem;
+    color: var(--color-text-medium);
+  }
+
+  .policy-body p {
+    margin-bottom: 0.75rem;
+  }
+
+  .policy-body ul {
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  /* Tabs Layout */
+  .fares-dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .tabs-nav {
+    display: flex;
+    background-color: var(--color-primary-light);
+    padding: 0.5rem;
+    border-radius: 9999px;
+    box-shadow: var(--shadow-sm);
+    max-width: 780px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .tab-btn {
+    flex: 1;
+    text-align: center;
+    padding: 0.85rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    border-radius: 9999px;
+    transition: var(--transition);
+  }
+
+  .tab-btn:hover {
+    color: var(--color-primary-dark);
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .tab-btn.active {
+    background-color: var(--color-primary);
+    color: var(--color-bg-white);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* Tab Panel styles */
+  .tab-panel {
+    display: none;
+    animation: fadeIn 0.4s ease-in-out forwards;
+  }
+
+  .tab-panel.active {
+    display: block;
+  }
+
+  .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--color-primary);
+    padding-bottom: 1rem;
+  }
+
+  .panel-title-area h3 {
+    font-size: 1.5rem;
+    color: var(--color-primary-dark);
+  }
+
+  .panel-title-area p {
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    margin-top: 0.25rem;
+  }
+
+  /* Season Toggle buttons */
+  .season-toggle-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .toggle-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-text-medium);
+  }
+
+  .season-toggle-group {
+    display: flex;
+    background-color: var(--color-border);
+    padding: 0.25rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .season-btn {
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0.45rem 1.1rem;
+    color: var(--color-text-medium);
+    border-radius: 4px;
+    transition: var(--transition);
+  }
+
+  .season-btn.active {
+    background-color: var(--color-bg-white);
+    color: var(--color-primary-dark);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* Fares Table and Season Filtering */
+  .table-fares .dest-en {
+    font-size: 0.8rem;
+    font-weight: normal;
+    color: var(--color-text-light);
+  }
+
+  .table-fares td.closed-label {
+    color: var(--color-text-light);
+    font-style: italic;
+    font-size: 0.85rem;
+  }
+
+  /* Visual changes depending on active season */
+  .tab-panel.season-winter .val-summer {
+    opacity: 0.35;
+    font-weight: normal;
+  }
+  .tab-panel.season-winter .val-winter {
+    color: var(--color-accent-dark);
+    font-weight: 900;
+    font-size: 1.05rem;
+  }
+
+  .tab-panel.season-summer .val-winter {
+    opacity: 0.35;
+    font-weight: normal;
+  }
+  .tab-panel.season-summer .val-summer {
+    color: var(--color-primary-dark);
+    font-weight: 900;
+    font-size: 1.05rem;
+  }
+
+  /* PDF Downloads */
+  .pdf-download-area {
+    margin-top: 3rem;
+    background-color: var(--color-primary-light);
+    border-radius: var(--radius-md);
+    padding: 2.5rem;
+    border: 1px dashed rgba(43, 76, 126, 0.3);
+    text-align: center;
+  }
+
+  .pdf-download-area h4 {
+    font-size: 1.25rem;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .pdf-download-area p {
+    font-size: 0.95rem;
+    color: var(--color-text-medium);
+    margin-bottom: 1.75rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .pdf-btn-group {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+
+  .pdf-btn-group .btn {
+    min-width: 260px;
+  }
+
+  /* Meter Fares Cards */
+  .meter-grid {
+    gap: 2rem;
+  }
+
+  .meter-card {
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg-white);
+  }
+
+  .meter-card-header {
+    background-color: var(--color-primary-light);
+    padding: 2rem;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .meter-card-header h3 {
+    font-size: 1.5rem;
+    color: var(--color-primary-dark);
+  }
+
+  .meter-sub {
+    font-size: 0.85rem;
+    color: var(--color-text-medium);
+  }
+
+  .meter-card-body {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .meter-rate-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px dashed var(--color-border);
+  }
+
+  .meter-rate-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .rate-label {
+    font-weight: 700;
+    color: var(--color-text-dark);
+    font-size: 0.95rem;
+  }
+
+  .rate-val {
+    font-size: 0.95rem;
+    color: var(--color-text-medium);
+    text-align: right;
+  }
+
+  .rate-val strong {
+    color: var(--color-primary-dark);
+    font-size: 1.15rem;
+    font-family: var(--font-sans);
+  }
+
+  .meter-extra-policy {
+    margin-top: 3.5rem;
+    border-top: 1px solid var(--color-border);
+    padding-top: 2.5rem;
+  }
+
+  .meter-extra-policy h4 {
+    font-size: 1.35rem;
+    color: var(--color-primary-dark);
+    margin-bottom: 1.5rem;
+  }
+
+  .extra-policy-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    max-width: 650px;
+    gap: 2.5rem;
+  }
+
+  .policy-item h5 {
+    font-size: 1.1rem;
+    color: var(--color-text-dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .policy-item p {
+    font-size: 0.95rem;
+    color: var(--color-text-medium);
+    line-height: 1.6;
+  }
+
+  /* Keyframes */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsiveness */
+  @media (max-width: 992px) {
+    .panel-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.25rem;
+    }
+    .season-toggle-wrap {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .page-hero {
+      padding: 4.5rem 0;
+    }
+    .page-hero h1 {
+      font-size: 2.25rem;
+    }
+    .cancellation-policy {
+      padding: 1.5rem;
+    }
+    .tabs-nav {
+      flex-direction: column;
+      border-radius: var(--radius-md);
+      padding: 0.35rem;
+      gap: 0.25rem;
+    }
+    .tab-btn {
+      padding: 0.65rem 1rem;
+      font-size: 0.9rem;
+      border-radius: var(--radius-sm);
+    }
+    .pdf-btn-group {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+    .pdf-btn-group .btn {
+      width: 100%;
+    }
+    .extra-policy-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .panel-title-area h3 {
+      font-size: 1.25rem;
+    }
+  }
+</style>
+
+<script>
+  function initFaresDashboard() {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+
+    // Tab Switching
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-target');
+        
+        // Deactivate active states
+        tabButtons.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        tabPanels.forEach(p => p.classList.remove('active'));
+
+        // Activate clicked state
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        const targetPanel = document.getElementById(targetId);
+        if (targetPanel) {
+          targetPanel.classList.add('active');
+        }
+      });
+    });
+
+    // Season Toggling (Standard vs Winter fares highlights)
+    const seasonToggles = document.querySelectorAll('.season-btn');
+    seasonToggles.forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const season = toggle.getAttribute('data-season');
+        const parentPanel = toggle.closest('.tab-panel');
+        
+        if (!parentPanel) return;
+
+        // Toggle active button style
+        const buttons = parentPanel.querySelectorAll('.season-btn');
+        buttons.forEach(b => b.classList.remove('active'));
+        toggle.classList.add('active');
+
+        // Toggle classes to toggle highlight styling
+        if (season === 'winter') {
+          parentPanel.classList.remove('season-summer');
+          parentPanel.classList.add('season-winter');
+        } else {
+          parentPanel.classList.remove('season-winter');
+          parentPanel.classList.add('season-summer');
+        }
+      });
+    });
+
+    // Set initial classes for highlight styles
+    tabPanels.forEach(panel => {
+      panel.classList.add('season-summer');
+    });
+  }
+
+  // Support standard loads and Astro view transition swaps
+  initFaresDashboard();
+  document.addEventListener('astro:after-swap', initFaresDashboard);
+</script>

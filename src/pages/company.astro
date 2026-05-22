@@ -1,0 +1,391 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+
+// Import local assets for Astro image optimization
+import officeImg from '../assets/images/office.jpg';
+import fleetImg from '../assets/images/fleet.jpg';
+import monkeyImg from '../assets/images/monkey.jpg';
+
+const pageTitle = "会社紹介・会社概要 | 高原タクシー株式会社 | 妙高市大字田口";
+const pageDescription = "新潟県妙高市で昭和38年（1963年）設立の「高原タクシー株式会社」の会社概要・代表挨拶ページです。妙高高原地区・旧妙高村地区を中心に安心のタクシーサービスを提供。住所、資本金、設立日、事業内容、Googleマップによるアクセスマップを掲載。";
+
+// Corporate details dataset
+const companyDetails = [
+  { label: "名称", value: "高原タクシー株式会社" },
+  { label: "郵便番号", value: "〒949-2106" },
+  { label: "住所", value: "新潟県妙高市大字田口321-2" },
+  { label: "電話番号", value: "0255-86-3141" },
+  { label: "ＦＡＸ番号", value: "0255-86-2287" },
+  { label: "代表取締役", value: "川久保 新二" },
+  { label: "設立年月日", value: "昭和38年8月9日 (1963年)" },
+  { label: "事業内容", value: "一般乗用旅客自動車運送事業 (タクシーサービス・観光タクシー・貸切タクシー)" },
+  { label: "資本金額", value: "金1,000万円" }
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} lang="ja" canonicalPath="/company/">
+
+  <!-- Page Header -->
+  <section class="page-hero">
+    <div class="container text-center">
+      <span class="section-subtitle">会社案内</span>
+      <h1 class="page-title">会社紹介</h1>
+      <p class="page-lead">信州と新潟を結ぶ妙高高原の麓で、60年以上にわたり地域の皆様の足として走り続けております。</p>
+    </div>
+  </section>
+
+  <!-- Greeting / Representative Message -->
+  <section class="greeting-section section-padding">
+    <div class="container">
+      <div class="grid grid-2 greeting-grid">
+        <div class="greeting-content">
+          <span class="section-subtitle">ご挨拶</span>
+          <h2 class="section-title">代表ご挨拶</h2>
+          <div class="greeting-text">
+            <p>
+              高原タクシー株式会社のホームページを見ていただき、誠にありがとうございます。
+            </p>
+            <p>
+              当社は、<strong>「爽やかな対応で安全・安心運転」</strong>をモットーに、旧妙高高原町地区・旧妙高村地区を中心に営業しております。地元の皆様の日々の生活の足としてはもちろん、観光旅行者、熱心な登山者、国内外のスキー客の皆様が安全かつスムーズに目的地へ移動できるよう、誠心誠意努めております。
+            </p>
+            <p>
+              妙高高原の美しい大自然を満喫できる観光タクシーをはじめ、各種おすすめの観光チャータープランも取り揃えております。お客様のご要望やスケジュールに合わせてオリジナルの素晴らしい景色をご案内いたしますので、お気軽にご相談ください。
+            </p>
+            <p>
+              お客様に安心してご乗車いただけるよう、車両の徹底したアルコール消毒、定期的な車内換気等をはじめとした安全管理に日々細心の注意を払い、日々運行を行っております。今後とも高原タクシーをよろしくお願い申し上げます。
+            </p>
+          </div>
+          <div class="greeting-signature">
+            <span class="sig-title">高原タクシー株式会社</span>
+            <span class="sig-name">代表取締役　<strong>川久保 新二</strong></span>
+          </div>
+        </div>
+
+        <div class="greeting-graphics">
+          <div class="graphic-card main-graphic">
+            <Image src={officeImg} alt="高原タクシー株式会社の本社建物・事務所外観" class="company-graphic-img" width={600} height={400} quality="high" />
+            <span class="graphic-badge">本社・営業所</span>
+          </div>
+          <div class="graphic-card sub-graphic">
+            <Image src={fleetImg} alt="高原タクシーが誇る4WDの普通車・ジャンボタクシー車両ラインナップ" class="company-graphic-img" width={600} height={400} quality="high" />
+            <span class="graphic-badge">乗務員一同、安全運転でお待ちしております</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Profile & Map Section -->
+  <section class="profile-section section-padding">
+    <div class="container">
+      <div class="text-center section-header">
+        <span class="section-subtitle">企業情報</span>
+        <h2 class="section-title">会社概要</h2>
+        <p class="section-description">高原タクシー株式会社の基本情報です。</p>
+      </div>
+
+      <div class="grid grid-2 profile-grid">
+        <!-- Details Table -->
+        <div class="table-wrapper profile-table-wrap">
+          <table class="table-custom profile-table">
+            <tbody>
+              {companyDetails.map(detail => (
+                <tr>
+                  <td class="profile-label"><strong>{detail.label}</strong></td>
+                  <td class="profile-val">{detail.value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Monkey Park Excursion & Visual -->
+        <div class="company-special-card card">
+          <div class="special-img-wrap">
+            <Image src={monkeyImg} alt="地獄谷野猿公苑で温泉に入るスノーモンキー" class="card-img" width={600} height={380} quality="high" />
+          </div>
+          <div class="card-content">
+            <span class="badge badge-accent">EXCURSION PLAN</span>
+            <h3 class="card-title">地獄谷野猿公苑（スノーモンキー）送迎</h3>
+            <p class="card-description">
+              国内外の観光客に絶大な人気を誇る「地獄谷野猿公苑（山ノ内町）」への送迎も承っております。世界で唯一、温泉に入るサル（スノーモンキー）を間近で観察できる名所へ、妙高高原から直行でスムーズにお連れいたします。往復チャーターや定額プランもお気軽にお問合せください。
+            </p>
+            <a href="/en/" class="btn btn-primary btn-sm">English / Excursion Guide</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Google Map Embed -->
+      <div class="map-container-wrapper">
+        <h3 class="map-title">アクセスマップ（本社所在地）</h3>
+        <p class="map-desc">妙高高原駅より徒歩約3分。踏切手前の青い看板が目印です。</p>
+        <div class="map-iframe-wrapper">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d789.2325655223422!2d138.21134388728558!3d36.871639801245195!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5ff63d6ae4108dab%3A0xe9735e5a95f7a55!2sKogen%20Taxis!5e0!3m2!1sen!2sjp!4v1779274477040!5m2!1sen!2sjp" 
+            width="100%" 
+            height="450" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"
+            title="高原タクシー株式会社 本社営業所 Googleマップ">
+          </iframe>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* Page Hero styles */
+  .page-hero {
+    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+    color: var(--color-bg-white);
+    padding: 5rem 0;
+    text-align: center;
+  }
+
+  .page-hero .section-subtitle {
+    color: var(--color-accent);
+  }
+
+  .page-hero h1 {
+    color: var(--color-bg-white);
+    font-size: 3rem;
+    font-weight: 900;
+  }
+
+  .page-lead {
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 700px;
+    margin: 1rem auto 0 auto;
+  }
+
+  /* Greeting Section */
+  .greeting-section {
+    background-color: var(--color-bg-white);
+  }
+
+  .greeting-grid {
+    align-items: center;
+    gap: 3.5rem;
+  }
+
+  .greeting-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .greeting-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    color: var(--color-text-medium);
+    font-size: 1rem;
+  }
+
+  .greeting-signature {
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+    padding-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .sig-title {
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    font-weight: 500;
+  }
+
+  .sig-name {
+    font-size: 1.15rem;
+    color: var(--color-primary-dark);
+  }
+
+  .sig-name strong {
+    font-size: 1.65rem;
+    color: var(--color-primary-dark);
+    margin-left: 0.5rem;
+  }
+
+  /* Greeting Graphics Collage */
+  .greeting-graphics {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .graphic-card {
+    position: relative;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    border: 3px solid var(--color-bg-white);
+    aspect-ratio: 16 / 10;
+  }
+
+  .company-graphic-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .graphic-badge {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    background-color: rgba(43, 76, 126, 0.85);
+    color: var(--color-bg-white);
+    padding: 0.35rem 0.85rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 9999px;
+    backdrop-filter: blur(4px);
+  }
+
+  /* Section Header layout for premium, spacious feel */
+  .section-header {
+    margin-bottom: 4.5rem; /* Massive premium breathing space below header */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .section-header .section-subtitle {
+    display: inline-flex; /* composition with global line pseudo-elements */
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    letter-spacing: 0.20em;
+    margin-bottom: 0.75rem; /* Generous gap between subtitle and title */
+  }
+
+  .section-header .section-title {
+    font-size: 2.5rem;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.85rem;
+  }
+
+  .section-header .section-description {
+    font-size: 1.05rem;
+    color: var(--color-text-light);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Profile Table */
+  .profile-grid {
+    align-items: stretch;
+    gap: 2.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .profile-table-wrap {
+    height: 100%;
+  }
+
+  .profile-table {
+    height: 100%;
+    min-width: 100%;
+  }
+
+  .profile-label {
+    width: 30%;
+    background-color: var(--color-primary-light);
+    color: var(--color-primary-dark);
+    white-space: nowrap;
+    border-right: 1px solid var(--color-border);
+  }
+
+  .profile-val {
+    width: 70%;
+  }
+
+  .company-special-card {
+    height: 100%;
+    background-color: var(--color-bg-white);
+  }
+
+  .company-special-card .badge {
+    align-self: flex-start; /* Size perfectly to the text width rather than 100% */
+    margin-bottom: 0.75rem; /* Add beautiful space under the badge */
+  }
+
+  .special-img-wrap {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+
+  .special-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Google Map Container */
+  .map-container-wrapper {
+    margin-top: 4rem;
+    background-color: var(--color-bg-white);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-border);
+  }
+
+  .map-title {
+    font-size: 1.35rem;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.25rem;
+  }
+
+  .map-desc {
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .map-iframe-wrapper {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-border);
+  }
+
+  /* Responsiveness */
+  @media (max-width: 992px) {
+    .greeting-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    .profile-grid {
+      grid-template-columns: 1fr;
+    }
+    .profile-label {
+      width: 25%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .page-hero {
+      padding: 4.5rem 0;
+    }
+    .page-hero h1 {
+      font-size: 2.25rem;
+    }
+    .map-container-wrapper {
+      padding: 1.5rem;
+    }
+    .profile-label {
+      width: 35%;
+    }
+  }
+</style>

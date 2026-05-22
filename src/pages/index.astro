@@ -1,0 +1,996 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+
+// Import local assets for Astro image optimization
+import officeImg from '../assets/images/office.jpg';
+import fleetImg from '../assets/images/fleet.jpg';
+import carsImg from '../assets/images/cars.jpg';
+import imoriImg from '../assets/images/imori.jpg';
+import rideShareImg from '../assets/images/ride-share.jpg';
+import recruitImg from '../assets/images/recruit-driver.jpg';
+
+const pageTitle = "高原タクシー株式会社 | 妙高高原・赤倉温泉のタクシー予約・観光案内";
+const pageDescription = "妙高高原で60年以上の歴史を持つ「高原タクシー」の公式ホームページです。爽やかな対応で安全・安心運転をモットーに、赤倉温泉・妙高杉ノ原・戸隠・笹ヶ峰への観光や登山、スキー場送迎、ジャンボタクシーの手配を承ります。お気軽に電話（0255-86-3141）にてご相談ください。";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} lang="ja" canonicalPath="/">
+  
+  <!-- Hero Section (Subtle travel gradient, tighter spacing, optimized grid) -->
+  <section class="hero-section">
+    <div class="container hero-container">
+      <div class="hero-content">
+        <span class="hero-eyebrow">高原の旅のお供に安全第一の</span>
+        <h1 class="hero-headline">高原タクシー</h1>
+        <p class="hero-subtext">
+          妙高山周辺の山登り、戸隠・斑尾・笹ヶ峰への観光やスキー場への送迎には、地元で信頼される高原タクシーをご利用ください。
+        </p>
+        
+        <!-- Sleek, Integrated Inline CTA Row -->
+        <div class="hero-cta-box">
+          <div class="cta-primary-row">
+            <a href="tel:0255-86-3141" class="cta-phone-btn" aria-label="電話番号 0255-86-3141">
+              <span class="cta-phone-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                  <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div class="cta-phone-text">
+                <span class="cta-phone-label">配車・ご予約・お見積り</span>
+                <span class="cta-phone-number">0255-86-3141</span>
+              </div>
+            </a>
+          </div>
+          
+          <div class="hero-btn-group">
+            <a href="/fares/" class="btn btn-primary">料金表を見る</a>
+            <a href="/en/" class="btn btn-outline">English Information</a>
+          </div>
+        </div>
+
+        <!-- Trust Indicators Row -->
+        <div class="hero-trust-row">
+          <div class="trust-item">
+            <span class="trust-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" /></svg>
+            </span>
+            <span class="trust-text">地元で長年営業</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg>
+            </span>
+            <span class="trust-text">妙高高原エリア対応</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" /></svg>
+            </span>
+            <span class="trust-text">スキー場送迎対応</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Single Premium Hero Image Layout -->
+      <div class="hero-images-single">
+        <div class="image-single">
+          <Image src={imoriImg} alt="妙高高原の象徴であるいもり池と妙高山の美しい景色" class="hero-img-single" width={750} height={500} quality="high" loading="eager" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- News Section (Minimalist, soft white card with thin borders) -->
+  <section class="news-section">
+    <div class="container">
+      <div class="news-banner">
+        <span class="news-badge">お知らせ</span>
+        <span class="news-date">2026年05月30日</span>
+        <span class="news-title">ホームページを開設しました。皆様のご利用を心よりお待ちしております。</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services / Slogan Section -->
+  <section class="intro-section section-padding">
+    <div class="container">
+      <div class="text-center intro-header">
+        <span class="section-subtitle">地域密着サービス</span>
+        <h2 class="section-title">爽やかな対応で安全・安心運転</h2>
+        <p class="intro-lead">
+          高原タクシーは、旧妙高高原町地区・旧妙高村地区を中心に営業している地域密着のタクシー会社です。
+        </p>
+      </div>
+
+      <div class="grid grid-3 intro-grid">
+        <div class="intro-card">
+          <div class="intro-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="36" height="36"><path d="m8 3-6 16h20L16 5l-4 5-4-7z"/><path d="M12 21v-4M9 21v-2M15 21v-3"/></svg>
+          </div>
+          <div class="intro-card-content">
+            <h3>観光・登山の案内役</h3>
+            <p>日本百名山に数えられる名峰・妙高山や笹ヶ峰高原、苗名滝、いもり池、さらには戸隠神社まで、大自然が織りなす素晴らしい景色を地元の熟練ドライバーが安全にご案内いたします。</p>
+          </div>
+        </div>
+
+        <div class="intro-card">
+          <div class="intro-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="36" height="36"><line x1="12" y1="2" x2="12" y2="22" /><line x1="2" y1="12" x2="22" y2="12" /><line x1="4.93" y1="4.93" x2="19.07" y2="19.07" /><line x1="4.93" y1="19.07" x2="19.07" y2="4.93" /><path d="m14 4-2 2-2-2M10 20l2-2 2 2M4 14l2-2-2-2M20 10l-2 2 2 2" /></svg>
+          </div>
+          <div class="intro-card-content">
+            <h3>冬のスキー場送迎</h3>
+            <p>豪雪地帯である妙高エリアでも安心。全車4WDを完備し、赤倉温泉、杉ノ原、池の平などの主要スキー場や、長野駅・上越妙高駅などの主要駅からの送迎を安全に遂行します。</p>
+          </div>
+        </div>
+
+        <div class="intro-card">
+          <div class="intro-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="36" height="36"><rect x="3" y="6" width="18" height="11" rx="2" /><path d="M7 17v2M17 17v2M3 11h18M7 11V6M17 11V6M12 6v5" /></svg>
+          </div>
+          <div class="intro-card-content">
+            <h3>大人数での快適移動</h3>
+            <p>最大9名までご乗車いただけるハイエースの「ジャンボタクシー」も完備。グループでの観光、登山グループ、冠婚葬祭、空港送迎など、お荷物が多い移動にも便利です。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Promotion Cards Grid -->
+  <section class="promo-section section-padding">
+    <div class="container">
+      <div class="grid grid-2 promo-grid">
+        <div class="promo-box">
+          <div class="promo-bg-img promo-bg-sightseeing"></div>
+          <div class="promo-overlay"></div>
+          <div class="promo-content">
+            <span class="promo-eyebrow">SIGHTSEEING TAXI</span>
+            <h3>妙高高原の観光タクシー</h3>
+            <p>
+              マイカー規制のある笹ヶ峰高原や、戸隠の社寺巡りなど、ご要望に合わせたオリジナル観光ルートも熟練ドライバーが丁寧にご案内します。
+            </p>
+            <a href="/sightseeing/" class="promo-btn">
+              観光スポットを見る
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="promo-box">
+          <div class="promo-bg-img promo-bg-jumbo"></div>
+          <div class="promo-overlay"></div>
+          <div class="promo-content">
+            <span class="promo-eyebrow">LARGE VEHICLES</span>
+            <h3>ジャンボタクシーのご案内</h3>
+            <p>
+              最大9名様ご乗車可能。グループ旅行なら普通車2台に分かれるより料金がお得です。スキー板や大容量スーツケースも快適に積載できます。
+            </p>
+            <a href="/fares/" class="promo-btn">
+              貸切料金表を見る
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fleet / Vehicle Info -->
+  <section class="fleet-section section-padding">
+    <div class="container">
+      <div class="text-center section-header">
+        <span class="section-subtitle">運行車両</span>
+        <h2 class="section-title">車両情報・車輌型別</h2>
+        <p class="section-description">冬の山道や悪天候でも力強く安全に走る「全車4WD」を導入しております。</p>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="table-custom">
+          <thead>
+            <tr>
+              <th>車輌型別</th>
+              <th>車種</th>
+              <th class="text-center">駆動方式</th>
+              <th class="text-center">車輌数</th>
+              <th class="text-center">乗客定員</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>ジャンボタクシー</strong></td>
+              <td>トヨタ（ハイエースグランドキャビン）</td>
+              <td class="text-center"><span class="badge badge-accent">4WD</span></td>
+              <td class="text-center">1台</td>
+              <td class="text-center"><strong>9名</strong></td>
+            </tr>
+            <tr>
+              <td><strong>普通車</strong></td>
+              <td>ホンダ（フリードハイブリッド）</td>
+              <td class="text-center"><span class="badge badge-accent">4WD</span></td>
+              <td class="text-center">1台</td>
+              <td class="text-center"><strong>4名</strong></td>
+            </tr>
+            <tr>
+              <td><strong>普通車</strong></td>
+              <td>ホンダ（シャトルハイブリッド）</td>
+              <td class="text-center"><span class="badge badge-accent">4WD</span></td>
+              <td class="text-center">2台</td>
+              <td class="text-center"><strong>4名</strong></td>
+            </tr>
+            <tr>
+              <td><strong>普通車</strong></td>
+              <td>トヨタ（カローラクロスハイブリッド）</td>
+              <td class="text-center"><span class="badge badge-accent">4WD</span></td>
+              <td class="text-center">2台</td>
+              <td class="text-center"><strong>4名</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recruit Section -->
+  <section class="recruit-section section-padding">
+    <div class="container">
+      <div class="text-center section-header">
+        <span class="section-subtitle">採用情報</span>
+        <h2 class="section-title">一緒に働く乗務員を募集しています</h2>
+        <p class="section-description">
+          未経験者・シニアも歓迎！二種免許取得支援制度あり。安心の地元企業で一緒に働きませんか？
+        </p>
+      </div>
+
+      <div class="grid grid-2 recruit-grid">
+        <!-- Ride Share Recruitment -->
+        <div class="card recruit-card">
+          <div class="recruit-img-wrapper">
+            <Image src={rideShareImg} alt="高原タクシー ライドシェア運転士募集チラシ" class="card-img" width={500} height={650} />
+          </div>
+          <div class="card-content">
+            <span class="badge badge-accent">NEW</span>
+            <h3 class="card-title">ライドシェア運転士 募集</h3>
+            <p class="card-description">
+              自家用車を使用して、隙間時間に効率よく働けるライドシェア運転士を大募集！第二種免許不要、週1日から勤務可能です。詳細な待遇や条件はチラシをご確認ください。
+            </p>
+            <a href="/images/ride-share.jpg" target="_blank" rel="noopener noreferrer" class="btn btn-accent">募集チラシを見る</a>
+          </div>
+        </div>
+
+        <!-- Taxi Driver Recruitment -->
+        <div class="card recruit-card">
+          <div class="recruit-img-wrapper">
+            <Image src={recruitImg} alt="高原タクシー タクシー乗務員（運転士）募集案内チラシ" class="card-img" width={500} height={650} />
+          </div>
+          <div class="card-content">
+            <span class="badge badge-primary">REGULAR</span>
+            <h3 class="card-title">タクシー乗務員（運転士） 募集</h3>
+            <p class="card-description">
+              正社員・パート募集。地域の皆様の生活の足として、また妙高を訪れる多くの観光客をお迎えするプロドライバーとして活躍できます。二種免許取得費用は全額会社負担！
+            </p>
+            <a href="/images/recruit-driver.jpg" target="_blank" rel="noopener noreferrer" class="btn btn-primary">募集チラシを見る</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* Hero Styles (Travel Theme Gradient, Snug Spacing, High Visual Hierarchy) */
+  .hero-section {
+    background: linear-gradient(135deg, #f7f9fc 0%, #ffffff 50%, #f0f4f8 100%);
+    padding: 3.5rem 0; /* Snug vertical spacing keeping content higher */
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .hero-container {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    align-items: center;
+    gap: 3.5rem;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Eye-catching Eyebrow with leading vector accent line */
+  .hero-eyebrow {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 2px;
+    background-color: var(--color-accent);
+  }
+
+  .hero-headline {
+    font-size: 3.25rem;
+    font-weight: 900;
+    color: var(--color-primary-dark);
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.03em;
+    line-height: 1.15;
+  }
+
+  .hero-subtext {
+    font-size: 1.05rem;
+    color: var(--color-text-medium);
+    margin-bottom: 2rem;
+    line-height: 1.8; /* Comfortable reading height */
+    max-width: 540px;
+  }
+
+  /* Sleek, Integrated Inline CTA Row */
+  .hero-cta-box {
+    background: var(--color-bg-white);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.75rem;
+    box-shadow: 0 8px 30px rgba(15, 32, 67, 0.04);
+    border: 1px solid rgba(15, 32, 67, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 620px;
+    margin-bottom: 2rem;
+  }
+
+  .cta-primary-row {
+    flex-shrink: 0;
+  }
+
+  .cta-phone-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+  }
+
+  .cta-phone-icon {
+    font-size: 1.35rem;
+    background-color: rgba(224, 109, 59, 0.08);
+    color: var(--color-accent);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: cta-pulse 2s infinite ease-in-out;
+  }
+
+  .cta-phone-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cta-phone-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--color-text-light);
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+  }
+
+  .cta-phone-number {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-accent);
+    font-family: var(--font-sans);
+    line-height: 1.1;
+    transition: color 0.25s ease;
+  }
+
+  .cta-phone-btn:hover .cta-phone-number {
+    color: var(--color-accent-dark);
+  }
+
+  .hero-btn-group {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .hero-btn-group .btn {
+    padding: 0.55rem 1.15rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Trust row styling */
+  .hero-trust-row {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    margin-top: 0.25rem;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .trust-icon {
+    font-size: 0.9rem;
+  }
+
+  .trust-text {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-text-medium);
+    letter-spacing: 0.02em;
+  }
+
+  /* Single Premium Hero Image Layout */
+  .hero-images-single {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .image-single {
+    width: 100%;
+    max-width: 680px;
+    border-radius: 1.5rem; /* Increased for curvier, more organic premium corners */
+    overflow: hidden;
+    box-shadow: 0 16px 45px rgba(15, 32, 67, 0.1);
+    border: 4px solid var(--color-bg-white);
+    aspect-ratio: 3 / 2;
+  }
+
+  .hero-img-single {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .image-single:hover .hero-img-single {
+    transform: scale(1.04);
+  }
+
+  /* Modern Announcement Bar */
+  .news-section {
+    margin-top: -1.25rem;
+    position: relative;
+    z-index: 15;
+    padding: 0 1rem;
+  }
+
+  .news-banner {
+    background-color: var(--color-bg-white);
+    color: var(--color-text-dark);
+    border-radius: var(--radius-md);
+    padding: 0.85rem 1.75rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    box-shadow: 0 4px 15px rgba(15, 32, 67, 0.03);
+    border: 1px solid var(--color-border);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .news-badge {
+    background-color: rgba(224, 109, 59, 0.1);
+    color: var(--color-accent-dark);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-sm);
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+  }
+
+  .news-date {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .news-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text-medium);
+    flex-grow: 1;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Pulse animation for Call CTA Icon */
+  @keyframes cta-pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(224, 109, 59, 0.4);
+    }
+    70% {
+      box-shadow: 0 0 0 8px rgba(224, 109, 59, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(224, 109, 59, 0);
+    }
+  }
+
+  /* Services Intro Section */
+  .intro-section {
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+    border-top: 1px solid rgba(43, 76, 126, 0.05);
+  }
+
+  .intro-header {
+    max-width: 600px;
+    margin: 0 auto 4rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .intro-header .section-subtitle {
+    order: -1;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+
+  .intro-header .section-subtitle::before,
+  .intro-header .section-subtitle::after {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 2px;
+    background-color: var(--color-accent);
+  }
+
+  .intro-header .section-title {
+    line-height: 1.35;
+    margin-bottom: 1rem;
+    color: var(--color-primary-dark);
+  }
+
+  .intro-lead {
+    font-size: 1.05rem;
+    color: var(--color-text-medium);
+    line-height: 1.8;
+  }
+
+  /* Promotional Promo Grid */
+  .promo-grid {
+    gap: 2rem;
+  }
+ 
+  .promo-box {
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 12px 35px rgba(15, 32, 67, 0.04);
+    min-height: 400px;
+    display: flex;
+    align-items: flex-end;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .promo-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 45px rgba(15, 32, 67, 0.1);
+  }
+
+  .promo-bg-img {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    z-index: 0;
+  }
+
+  .promo-bg-sightseeing {
+    background-image: url('/images/imori.jpg');
+  }
+
+  .promo-bg-jumbo {
+    background-image: url('/images/fleet.jpg');
+  }
+
+  .promo-box:hover .promo-bg-img {
+    transform: scale(1.06);
+  }
+
+  .promo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(15, 32, 67, 0) 35%, rgba(15, 32, 67, 0.82) 100%);
+    transition: background 0.4s ease;
+    z-index: 1;
+  }
+
+  .promo-box:hover .promo-overlay {
+    background: linear-gradient(180deg, rgba(15, 32, 67, 0) 25%, rgba(15, 32, 67, 0.9) 100%);
+  }
+
+  .promo-content {
+    padding: 3.5rem 3rem;
+    color: rgba(255, 255, 255, 0.95);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+    width: 100%;
+  }
+
+  .promo-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    letter-spacing: 0.15em;
+    opacity: 0.9;
+  }
+
+  .promo-content h3 {
+    color: var(--color-bg-white);
+    font-size: 1.75rem;
+    font-weight: 800;
+    margin-bottom: 0.25rem;
+    letter-spacing: 0.02em;
+  }
+
+  .promo-content p {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+    opacity: 0.9;
+    max-width: 90%;
+  }
+
+  .promo-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--color-bg-white);
+    color: var(--color-primary-dark);
+    padding: 0.7rem 1.35rem;
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(15, 32, 67, 0.1);
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .promo-btn svg {
+    transition: transform 0.3s ease;
+  }
+
+  .promo-btn:hover {
+    background-color: var(--color-primary);
+    color: var(--color-bg-white);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(43, 76, 126, 0.2);
+  }
+
+  .promo-btn:hover svg {
+    transform: translateX(3px);
+  }
+
+  .intro-grid {
+    gap: 2rem;
+  }
+
+  .intro-card {
+    background-color: var(--color-bg-white);
+    border-radius: 20px;
+    padding: 3rem 2.5rem;
+    border: 1px solid rgba(43, 76, 126, 0.06);
+    box-shadow: 0 10px 30px rgba(15, 32, 67, 0.03);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    text-align: center;
+    gap: 1.75rem;
+  }
+
+  .intro-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(15, 32, 67, 0.08);
+  }
+
+  .intro-icon {
+    width: 72px;
+    height: 72px;
+    background: rgba(43, 76, 126, 0.04);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    transition: background 0.4s ease, color 0.4s ease, transform 0.4s ease;
+    flex-shrink: 0;
+  }
+
+  .intro-card:hover .intro-icon {
+    background: var(--color-primary);
+    color: var(--color-bg-white);
+    transform: scale(1.05);
+  }
+
+  .intro-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .intro-card h3 {
+    font-size: 1.25rem;
+    color: var(--color-primary-dark);
+    font-weight: 800;
+  }
+
+  .intro-card p {
+    font-size: 0.95rem;
+    color: var(--color-text-medium);
+    line-height: 1.75;
+  }
+
+  /* Promotional Promo Grid */
+  .promo-grid {
+    gap: 2.5rem;
+  }
+
+  .promo-box {
+    border-radius: var(--radius-lg);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    min-height: 380px;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .promo-sightseeing {
+    background-image: linear-gradient(to top, rgba(15, 32, 67, 0.92) 20%, rgba(15, 32, 67, 0.25) 100%), url('/images/imori.jpg');
+  }
+
+  .promo-jumbo {
+    background-image: linear-gradient(to top, rgba(15, 32, 67, 0.92) 20%, rgba(15, 32, 67, 0.25) 100%), url('/images/fleet.jpg');
+  }
+
+  .promo-content {
+    padding: 3rem;
+    color: rgba(255, 255, 255, 0.9);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  .promo-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    letter-spacing: 0.15em;
+  }
+
+  .promo-content h3 {
+    color: var(--color-bg-white);
+    font-size: 1.85rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .promo-content p {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  /* Fleet & Section Headers */
+  .section-header {
+    max-width: 600px;
+    margin: 0 auto 3.5rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .section-subtitle {
+    order: -1;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+
+  .section-subtitle::before,
+  .section-subtitle::after {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 2px;
+    background-color: var(--color-accent);
+  }
+
+  .section-title {
+    line-height: 1.35;
+    margin-bottom: 1rem;
+    color: var(--color-primary-dark);
+  }
+
+  .section-description {
+    font-size: 1.05rem;
+    color: var(--color-text-medium);
+    line-height: 1.8;
+  }
+
+  /* Recruitment hub */
+  .recruit-section {
+    background-color: var(--color-primary-light);
+  }
+
+  .recruit-grid {
+    gap: 2.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .recruit-card {
+    flex-direction: column;
+    box-shadow: var(--shadow-md);
+  }
+
+  .recruit-img-wrapper {
+    height: 380px;
+    overflow: hidden;
+  }
+
+  .recruit-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .recruit-card .badge {
+    align-self: flex-start;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 992px) {
+    .hero-section {
+      padding: 3rem 0 2rem 0;
+    }
+
+    .hero-container {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .hero-content {
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero-subtext {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-cta-box {
+      flex-direction: column;
+      padding: 1.25rem;
+      gap: 1.25rem;
+      align-items: center;
+      margin: 0 auto 1.5rem auto;
+    }
+
+    .hero-btn-group {
+      width: 100%;
+    }
+
+    .hero-btn-group .btn {
+      flex: 1;
+      text-align: center;
+      justify-content: center;
+    }
+
+    .hero-trust-row {
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .hero-images-single {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-headline {
+      font-size: 2.35rem;
+    }
+
+    .promo-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .promo-box {
+      min-height: 320px;
+    }
+
+    .promo-content {
+      padding: 2.5rem 1.75rem;
+    }
+
+    .promo-content h3 {
+      font-size: 1.5rem;
+    }
+
+    .promo-content p {
+      max-width: 100%;
+      font-size: 0.9rem;
+    }
+
+    .cta-phone-number {
+      font-size: 1.35rem;
+    }
+
+    .news-banner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      padding: 1rem 1.25rem;
+    }
+
+    .news-title {
+      white-space: normal;
+    }
+
+    .recruit-img-wrapper {
+      height: 280px;
+    }
+  }
+</style>

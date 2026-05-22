@@ -1,0 +1,692 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+
+// Import local assets for Astro image optimization
+import fleetImg from '../../assets/images/fleet.jpg';
+
+const pageTitle = "Kogen Taxi Company | Myoko Kogen English Taxi Service & Fares";
+const pageDescription = "Welcome to Kogen Taxi Company, the main taxi service in Myoko Kogen. Serving Akakura Onsen, Suginohara, Seki Onsen, and local ski resorts for over 30 years. View our taxi fares to Hakuba, Nozawa Onsen, airports (Narita, Haneda), stations (Myoko Kogen, Joetsu-Myoko, Nagano), and Snow Monkey Park. Japanese and English booking assistance.";
+
+// English Fare Tables (Prices from Akakura)
+const skiResortFares = [
+  { dest: "Suginohara Ski Resort", med: 4300, large: 6000 },
+  { dest: "Seki Onsen Ski Resort", med: 7000, large: 9600 },
+  { dest: "Tangram Ski Circus", med: 8500, large: 12800 },
+  { dest: "Madarao Mountain Resort", med: 10400, large: 14300 },
+  { dest: "Nozawa Onsen Ski Resort", med: 24000, large: 34000 },
+  { dest: "Lotte Arai Resort", med: 12400, large: 17100 },
+  { dest: "Shiga Kogen Ski Resort", med: 33000, large: 46000 },
+  { dest: "Hakuba Valley Resorts", med: 48000, large: 66000 },
+];
+
+const localPlaceFares = [
+  { dest: "Sushi Takasago (Myoko Kogen)", med: 3600, large: 4900 },
+  { dest: "Sushi Miyagawa", med: 3000, large: 4100 },
+  { dest: "Myoko Hospital", med: 3600, large: 4900 },
+  { dest: "Keinan Hospital", med: 11400, large: 15900 },
+  { dest: "Shinetsu Hospital", med: 7600, large: 10900 },
+  { dest: "Chuo Hospital", med: 17000, large: 23700 },
+];
+
+const stationFares = [
+  { dest: "Myoko Kogen Station", med: 3300, large: 4600 },
+  { dest: "Kurohime Station", med: 7700, large: 10600 },
+  { dest: "Joetsu Myoko Station (Shinkansen)", med: 15000, large: 20700 },
+  { dest: "Iiyama Station (Shinkansen)", med: 17500, large: 24200 },
+  { dest: "Nagano Station (Shinkansen)", med: 20000, large: 27800 },
+];
+
+const airportFares = [
+  { dest: "Haneda Airport (Tokyo)", med: 107000, large: 140000 },
+  { dest: "Narita Airport (Tokyo)", med: 128000, large: 167000 },
+  { dest: "Niigata Airport", med: 64500, large: 84000 },
+  { dest: "Toyama Airport", med: 58000, large: 76000 },
+];
+
+const monkeyFares = [
+  { dest: "Snow Monkey Park (Jigokudani) - Round Trip", med: 43000, large: 58000 },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} lang="en" canonicalPath="/en/">
+
+  <!-- Hero Header -->
+  <section class="page-hero">
+    <div class="container text-center">
+      <span class="section-subtitle">WELCOME TO MYOKO KOGEN</span>
+      <h1 class="page-title">Kogen Taxi Company</h1>
+      <p class="page-lead">Serving the Myoko Kogen area for over 30 years with safe, reliable 4WD taxi and group transport services.</p>
+    </div>
+  </section>
+
+  <!-- Introduction & Capacity Grid -->
+  <section class="en-intro-section section-padding">
+    <div class="container">
+      <div class="grid grid-2 intro-grid">
+        <div class="en-intro-text">
+          <span class="section-subtitle font-sans">RELIABLE SKI & SUMMER TRANSFERS</span>
+          <h2>Your Local Transportation Partner</h2>
+          <p>
+            Welcome to Kogen Taxi. We are Myoko Kogen’s main taxi service and have been proudly serving the international tourism and local community for decades.
+          </p>
+          <p>
+            We operate a modern, fully-equipped fleet of <strong>4WD vehicles</strong> designed to handle the heavy winter snowfalls of Niigata safely. Whether you are traveling alone with heavy ski bags or traveling in a large family group, we are the most convenient way to access Myoko’s amazing ski resorts, scenic spots, and transit hubs.
+          </p>
+          
+          <!-- Booking Guidelines Card -->
+          <div class="en-booking-box" id="booking">
+            <h4>How to Book a Kogen Taxi</h4>
+            <p>
+              Please note that our drivers and phone operators <strong>currently only speak Japanese</strong>. To ensure a smooth and accurate booking, we recommend booking through your accommodation:
+            </p>
+            
+            <div class="booking-options">
+              <div class="booking-option">
+                <div>
+                  <strong>Book Through Your Hotel or Host:</strong>
+                  <p>Simply ask your hotel reception, lodge host, or local tourist information center to call us at <strong>0255-86-3141</strong>. They will arrange the pickup location, date, and vehicle size on your behalf.</p>
+                  <a href="tel:0255-86-3141" class="btn btn-accent btn-sm" style="margin-top: 0.75rem; display: inline-flex; align-items: center; font-family: var(--font-sans); font-weight: 600;">
+                    Call 0255-86-3141
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="en-intro-graphic">
+          <div class="graphic-wrapper card">
+            <Image src={fleetImg} alt="Kogen Taxi fleet lineup of 4WD shuttle and station wagon taxis in Myoko" class="card-img" width={600} height={400} quality="high" />
+          </div>
+          
+          <!-- Fleet Sizes Guideline -->
+          <div class="capacity-grid">
+            <div class="card capacity-card">
+              <div class="cap-header">
+                <span class="badge badge-primary">Standard</span>
+                <h3>Medium Taxi (M)</h3>
+              </div>
+              <div class="cap-body">
+                <span class="cap-num">👥 1 - 4 Passengers</span>
+                <p>Perfect for solo travelers, couples, or small families. Accommodates standard luggage.</p>
+              </div>
+            </div>
+            
+            <div class="card capacity-card">
+              <div class="cap-header">
+                <span class="badge badge-accent">Jumbo Shuttle</span>
+                <h3>Large Taxi (L)</h3>
+              </div>
+              <div class="cap-body">
+                <span class="cap-num">👥 Up to 9 Passengers</span>
+                <p>Spacious passenger van (Toyota Hiace), ideal for ski groups, large families, and bulky ski gear.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fares Section -->
+  <section class="en-fares-section section-padding" id="fares">
+    <div class="container">
+      <div class="text-center section-header">
+        <span class="section-subtitle font-sans">TAXI FARES CHART</span>
+        <h2>Estimated Fares from Akakura</h2>
+        <p class="section-description">
+          All fares listed below are calculated <strong>from Akakura Onsen</strong>. Fares will differ if you ride from a different starting location. Fares are approximate and calculated per vehicle (shared by your group).
+        </p>
+      </div>
+
+      <!-- Policy notes -->
+      <div class="en-policy-box">
+        <span class="policy-badge">Cancellation Policy</span>
+        <div class="policy-content">
+          <p>A cancellation fee of <strong>50%</strong> is charged for cancellations made within 24 hours of the reserved time, and <strong>100%</strong> is charged for cancellations after the reserved time.</p>
+        </div>
+      </div>
+
+      <!-- Fares dashboard tabs -->
+      <div class="en-fares-dashboard">
+        <div class="tabs-nav" role="tablist">
+          <button class="tab-btn active" role="tab" aria-selected="true" data-target="ski-tab">Ski Resorts</button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-target="local-tab">Local Places</button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-target="station-tab">Stations</button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-target="airport-tab">Airports & Excursions</button>
+        </div>
+
+        <div class="tabs-content">
+          
+          <!-- TAB 1: Ski Resorts -->
+          <div id="ski-tab" class="tab-panel active" role="tabpanel">
+            <div class="panel-header">
+              <h3>Ski Resorts Fares (from Akakura)</h3>
+              <p>Direct door-to-door shuttle transfers to neighboring ski resorts in Myoko, Nagano, and Hakuba.</p>
+            </div>
+            <div class="table-wrapper">
+              <table class="table-custom">
+                <thead>
+                  <tr>
+                    <th>Destination Ski Resort</th>
+                    <th class="text-right">Medium Taxi (M)</th>
+                    <th class="text-right">Large Taxi (L / Jumbo)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {skiResortFares.map(fare => (
+                    <tr>
+                      <td><strong>{fare.dest}</strong></td>
+                      <td class="text-right font-sans">￥{fare.med.toLocaleString()}</td>
+                      <td class="text-right font-sans">￥{fare.large.toLocaleString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- TAB 2: Local Hotspots -->
+          <div id="local-tab" class="tab-panel" role="tabpanel">
+            <div class="panel-header">
+              <h3>Local Places Fares (from Akakura)</h3>
+              <p>Local dining, shopping, hot springs, and medical clinics/hospitals near Myoko Kogen.</p>
+            </div>
+            <div class="table-wrapper">
+              <table class="table-custom">
+                <thead>
+                  <tr>
+                    <th>Destination Area</th>
+                    <th class="text-right">Medium Taxi (M)</th>
+                    <th class="text-right">Large Taxi (L / Jumbo)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {localPlaceFares.map(fare => (
+                    <tr>
+                      <td><strong>{fare.dest}</strong></td>
+                      <td class="text-right font-sans">￥{fare.med.toLocaleString()}</td>
+                      <td class="text-right font-sans">￥{fare.large.toLocaleString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- TAB 3: Stations -->
+          <div id="station-tab" class="tab-panel" role="tabpanel">
+            <div class="panel-header">
+              <h3>Train Stations Fares (from Akakura)</h3>
+              <p>Quick transfers to Shinkansen Bullet Train stations and local train terminals.</p>
+            </div>
+            <div class="table-wrapper">
+              <table class="table-custom">
+                <thead>
+                  <tr>
+                    <th>Destination Station</th>
+                    <th class="text-right">Medium Taxi (M)</th>
+                    <th class="text-right">Large Taxi (L / Jumbo)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {stationFares.map(fare => (
+                    <tr>
+                      <td><strong>{fare.dest}</strong></td>
+                      <td class="text-right font-sans">￥{fare.med.toLocaleString()}</td>
+                      <td class="text-right font-sans">￥{fare.large.toLocaleString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- TAB 4: Airports & Snow Monkey -->
+          <div id="airport-tab" class="tab-panel" role="tabpanel">
+            <div class="panel-header">
+              <h3>Airports & Excursion Fares (from Akakura)</h3>
+              <p>Long-distance transfers to major airports and complete round-trip sightseeing packages.</p>
+            </div>
+            
+            <div class="excursion-category">
+              <h4>Airport Transfers</h4>
+              <div class="table-wrapper">
+                <table class="table-custom">
+                  <thead>
+                    <tr>
+                      <th>Destination Airport</th>
+                      <th class="text-right">Medium Taxi (M)</th>
+                      <th class="text-right">Large Taxi (L / Jumbo)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {airportFares.map(fare => (
+                      <tr>
+                        <td><strong>{fare.dest}</strong></td>
+                        <td class="text-right font-sans">￥{fare.med.toLocaleString()}</td>
+                        <td class="text-right font-sans">￥{fare.large.toLocaleString()}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="excursion-category" style="margin-top: 2.5rem;">
+              <h4>Snow Monkey Park Charter Excursions</h4>
+              <div class="table-wrapper">
+                <table class="table-custom">
+                  <thead>
+                    <tr>
+                      <th>Excursion Package</th>
+                      <th class="text-right">Medium Taxi (M)</th>
+                      <th class="text-right">Large Taxi (L / Jumbo)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {monkeyFares.map(fare => (
+                      <tr>
+                        <td><strong>{fare.dest}</strong></td>
+                        <td class="text-right font-sans">￥{fare.med.toLocaleString()}</td>
+                        <td class="text-right font-sans">￥{fare.large.toLocaleString()}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="excursion-note">*Snow Monkey Park package includes return transportation with flexible waiting time at the park trail entrance.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* Page Hero styles */
+  .page-hero {
+    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+    color: var(--color-bg-white);
+    padding: 5rem 0;
+    text-align: center;
+  }
+
+  .page-hero .section-subtitle {
+    color: var(--color-accent);
+  }
+
+  .page-hero h1 {
+    color: var(--color-bg-white);
+    font-size: 3rem;
+    font-weight: 900;
+  }
+
+  .page-lead {
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 700px;
+    margin: 1rem auto 0 auto;
+  }
+
+  /* Intro Section */
+  .intro-grid {
+    gap: 3.5rem;
+    align-items: stretch;
+  }
+
+  .en-intro-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .en-intro-text p {
+    font-size: 1.05rem;
+    color: var(--color-text-medium);
+  }
+
+  .en-intro-graphic {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .graphic-wrapper {
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+  }
+
+  /* Booking Box details */
+  .en-booking-box {
+    background-color: var(--color-primary-light);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    border: 1px solid rgba(43, 76, 126, 0.1);
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    flex-grow: 1;
+  }
+
+  .en-booking-box h4 {
+    font-size: 1.25rem;
+    color: var(--color-primary-dark);
+  }
+
+  .en-booking-box p {
+    font-size: 0.95rem !important;
+    color: var(--color-text-medium);
+  }
+
+  .booking-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    flex-grow: 1;
+  }
+
+  .booking-option {
+    display: flex;
+    gap: 1rem;
+    align-items: stretch;
+    flex-grow: 1;
+  }
+
+  .booking-option > div {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .booking-option .btn {
+    margin-top: auto !important;
+    align-self: flex-start;
+  }
+
+  .opt-num {
+    background-color: var(--color-accent);
+    color: var(--color-bg-white);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+    font-family: var(--font-sans);
+  }
+
+  .booking-option strong {
+    font-size: 0.95rem;
+    color: var(--color-text-dark);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  .email-placeholder-btn {
+    margin-top: 0.75rem;
+    font-family: var(--font-sans);
+    letter-spacing: 0.02em;
+    padding: 0.45rem 1.25rem;
+    font-size: 0.85rem;
+    align-self: flex-start;
+  }
+
+  /* Capacity grid as vertical rows */
+  .capacity-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1.5rem; /* Space below the graphic */
+  }
+
+  .capacity-card {
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg-white);
+  }
+
+  .cap-header {
+    background-color: var(--color-bg-light);
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  .cap-header h3 {
+    font-size: 1.2rem;
+    color: var(--color-primary-dark);
+  }
+
+  .cap-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .cap-num {
+    font-weight: 700;
+    color: var(--color-accent-dark);
+    font-size: 0.9rem;
+  }
+
+  .cap-body p {
+    font-size: 0.85rem;
+    color: var(--color-text-medium);
+    line-height: 1.5;
+  }
+
+  .en-fares-section .section-header {
+    margin-bottom: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .en-fares-section .section-header h2 {
+    font-size: 2.5rem;
+    color: var(--color-primary-dark);
+    margin-top: 0.5rem;
+    margin-bottom: 1.25rem; /* Generous spacing under the title */
+  }
+
+  .en-fares-section .section-description {
+    font-size: 1.05rem;
+    color: var(--color-text-medium);
+    max-width: 680px;
+    margin: 0 auto;
+    line-height: 1.75;
+  }
+
+  /* Policy box */
+  .en-policy-box {
+    background-color: var(--color-bg-white);
+    border-radius: var(--radius-md);
+    padding: 2rem 2.5rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-border);
+    margin-bottom: 4.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .policy-badge {
+    background-color: rgba(224, 109, 59, 0.1);
+    color: var(--color-accent-dark);
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0.35rem 1rem;
+    border-radius: var(--radius-sm);
+    align-self: flex-start;
+  }
+
+  .policy-content p {
+    font-size: 1.05rem;
+    color: var(--color-text-medium);
+    line-height: 1.6;
+  }
+
+  /* Fares dashboard */
+  .en-fares-dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem; /* Increased spacing between tabs nav and content */
+  }
+
+  .tabs-nav {
+    display: flex;
+    background-color: var(--color-primary-light);
+    padding: 0.5rem;
+    border-radius: 9999px;
+    box-shadow: var(--shadow-sm);
+    max-width: 700px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .tab-btn {
+    flex: 1;
+    text-align: center;
+    padding: 0.85rem 1rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    border-radius: 9999px;
+    transition: var(--transition);
+  }
+
+  .tab-btn:hover {
+    color: var(--color-primary-dark);
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .tab-btn.active {
+    background-color: var(--color-primary);
+    color: var(--color-bg-white);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* Panel styles */
+  .tab-panel {
+    display: none;
+    animation: fadeIn 0.4s ease-in-out forwards;
+  }
+
+  .tab-panel.active {
+    display: block;
+  }
+
+  .panel-header {
+    margin-bottom: 2.5rem;
+    border-bottom: 2px solid var(--color-primary);
+    padding-bottom: 1rem;
+  }
+
+  .panel-header h3 {
+    font-size: 1.5rem;
+    color: var(--color-primary-dark);
+  }
+
+  .panel-header p {
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    margin-top: 0.25rem;
+  }
+
+  .excursion-category h4 {
+    font-size: 1.2rem;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.75rem;
+  }
+
+  .excursion-note {
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsiveness */
+  @media (max-width: 992px) {
+    .intro-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .page-hero {
+      padding: 4.5rem 0;
+    }
+    .page-hero h1 {
+      font-size: 2.25rem;
+    }
+    .en-booking-box {
+      padding: 1.5rem;
+    }
+    .tabs-nav {
+      flex-direction: column;
+      border-radius: var(--radius-md);
+      padding: 0.35rem;
+      gap: 0.25rem;
+    }
+    .tab-btn {
+      padding: 0.65rem 1rem;
+      font-size: 0.9rem;
+      border-radius: var(--radius-sm);
+    }
+  }
+</style>
+
+<script>
+  function initEnDashboard() {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-target');
+        
+        tabButtons.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        tabPanels.forEach(p => p.classList.remove('active'));
+
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        const targetPanel = document.getElementById(targetId);
+        if (targetPanel) {
+          targetPanel.classList.add('active');
+        }
+      });
+    });
+  }
+
+  // Support standard loads and Astro view transition swaps
+  initEnDashboard();
+  document.addEventListener('astro:after-swap', initEnDashboard);
+</script>

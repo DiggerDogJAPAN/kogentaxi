@@ -1,0 +1,483 @@
+---
+interface Props {
+  lang?: 'ja' | 'en';
+  currentPath?: string;
+}
+
+const { lang = 'ja', currentPath = '/' } = Astro.props;
+
+// Ensure trailing slash structure for active links comparison
+const normalizedPath = currentPath.endsWith('/') ? currentPath : `${currentPath}/`;
+
+// Consistent Japanese navigation labels with ENGLISH language key on all pages/subfolders
+const links = [
+  { href: '/', label: 'ホーム' },
+  { href: '/fares/', label: 'タクシー料金' },
+  { href: '/sightseeing/', label: '観光スポット' },
+  { href: '/company/', label: '会社紹介' },
+  { href: '/en/', label: 'ENGLISH' }
+];
+---
+
+<header class="header">
+  <div class="container header-container">
+    <!-- Brand Logo (Direct on header background with no hover background effects) -->
+    <a href="/" class="logo-link" aria-label="高原タクシー ホーム">
+      <div class="logo-icon-wrapper">
+        <img src="/images/logo.svg" alt="Kogen Taxi Logo" class="logo-svg" />
+      </div>
+      <div class="logo-text">
+        <span class="logo-title">高原タクシー</span>
+        <span class="logo-subtitle">KOGEN TAXI</span>
+      </div>
+    </a>
+
+    <!-- Desktop Navigation & Contact CTA (Cleanly aligned on the same visual grid) -->
+    <div class="header-right-desktop">
+      <nav class="nav-desktop" aria-label="メインナビゲーション">
+        {links.map(link => {
+          const isActive = normalizedPath === (link.href.endsWith('/') ? link.href : `${link.href}/`);
+          return (
+            <a 
+              href={link.href} 
+              class={`nav-link ${isActive ? 'active' : ''} ${link.label === 'ENGLISH' ? 'lang-switch' : ''}`}
+            >
+              {link.label}
+            </a>
+          );
+        })}
+      </nav>
+
+      <div class="header-contact">
+        <span class="contact-label">配車・ご予約</span>
+        <a href="tel:0255-86-3141" class="contact-tel">
+          0255-86-3141
+        </a>
+      </div>
+    </div>
+
+    <!-- Mobile Hamburger Button -->
+    <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="メニューを開く" aria-expanded="false">
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-drawer" class="mobile-drawer">
+    <nav class="mobile-nav" aria-label="モバイルナビゲーション">
+      {links.map(link => {
+        const isActive = normalizedPath === (link.href.endsWith('/') ? link.href : `${link.href}/`);
+        return (
+          <a 
+            href={link.href} 
+            class={`mobile-nav-link ${isActive ? 'active' : ''} ${link.label === 'ENGLISH' ? 'lang-switch-mobile' : ''}`}
+          >
+            {link.label}
+          </a>
+        );
+      })}
+      
+      <div class="mobile-drawer-contact">
+        <span class="drawer-contact-label">お電話でのご予約・お問合せ</span>
+        <a href="tel:0255-86-3141" class="drawer-tel-btn">
+          0255-86-3141
+        </a>
+        <span class="drawer-hours">営業時間: 6:00 〜 23:30 (年中無休)</span>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style>
+  /* Header Base */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: var(--color-bg-white);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    height: 75px; /* Slightly reduced height for a cleaner appearance */
+    display: flex;
+    align-items: center;
+    transition: var(--transition);
+    padding: 0 2rem;
+  }
+
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  /* Logo Links & Wrapper (No hover backgrounds, no white overlay filters) */
+  .logo-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+  }
+
+  .logo-icon-wrapper {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent; /* Sitting directly on the white background */
+    padding: 0;
+    transition: none;
+  }
+
+  .logo-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: none;
+  }
+
+  /* Force logo to remain visually unchanged on hover, focus, active states */
+  .logo-link:hover .logo-icon-wrapper,
+  .logo-link:focus .logo-icon-wrapper,
+  .logo-link:active .logo-icon-wrapper {
+    background-color: transparent !important;
+  }
+
+  .logo-link:hover .logo-svg,
+  .logo-link:focus .logo-svg,
+  .logo-link:active .logo-svg {
+    filter: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .logo-title {
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: var(--color-primary);
+    letter-spacing: 0.05em;
+    line-height: 1.1;
+  }
+
+  .logo-subtitle {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-light);
+    letter-spacing: 0.1em;
+  }
+
+  /* Right Desktop Row Grid */
+  .header-right-desktop {
+    display: flex;
+    align-items: center;
+    gap: 2.25rem; /* Consistent balanced spacing */
+  }
+
+  .nav-desktop {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem; /* Balanced menu item spacing */
+  }
+
+  .nav-link {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text-medium);
+    padding: 0.4rem 0;
+    position: relative;
+    text-decoration: none;
+    transition: color 0.25s ease;
+  }
+
+  /* Subtle text color change on hover */
+  .nav-link:hover {
+    color: var(--color-primary);
+  }
+
+  /* Sleek, thinner underline style */
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px; /* Thinner line */
+    background-color: var(--color-primary);
+    transition: width 0.25s ease;
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  .nav-link.active {
+    color: var(--color-primary-dark);
+    font-weight: 700;
+  }
+
+  .nav-link.active::after {
+    width: 100%;
+    height: 2px; /* Thinner active line */
+  }
+
+  /* English Language Toggle Button */
+  .nav-link.lang-switch {
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    padding: 0.35rem 1.1rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    transition: all 0.25s ease;
+  }
+
+  .nav-link.lang-switch::after {
+    display: none;
+  }
+
+  .nav-link.lang-switch:hover {
+    background-color: var(--color-primary);
+    color: var(--color-bg-white);
+  }
+
+  /* Contact CTA Block */
+  .header-contact {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-left: 1px solid var(--color-border);
+    padding-left: 1.5rem;
+    gap: 0.15rem;
+  }
+
+  .contact-label {
+    font-size: 0.7rem;
+    color: var(--color-text-light);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+
+  .contact-tel {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--color-accent);
+    font-family: var(--font-sans);
+    text-decoration: none;
+    transition: color 0.25s ease;
+    line-height: 1;
+  }
+
+  .contact-tel:hover {
+    color: var(--color-accent-dark);
+  }
+
+  /* Mobile Hamburger Button */
+  .mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 18px;
+    z-index: 1100;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .hamburger-bar {
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-primary);
+    border-radius: 9999px;
+    transition: var(--transition);
+    transform-origin: center;
+  }
+
+  /* Mobile Drawer */
+  .mobile-drawer {
+    display: none;
+  }
+
+  /* Responsive Behaviors */
+  @media (max-width: 992px) {
+    .header {
+      position: relative;
+      height: 68px; /* Slightly reduced mobile height */
+      padding: 0 1.25rem;
+    }
+
+    .header-right-desktop {
+      display: none;
+    }
+
+    .mobile-menu-btn {
+      display: flex;
+    }
+
+    /* Mobile Drawer Settings */
+    .mobile-drawer {
+      display: block;
+      position: fixed;
+      top: 68px;
+      left: 0;
+      width: 100%;
+      height: calc(100vh - 68px);
+      background-color: rgba(255, 255, 255, 0.99);
+      z-index: 999;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      border-top: 1px solid var(--color-border);
+      overflow-y: auto;
+    }
+
+    .mobile-drawer.open {
+      transform: translateX(0);
+    }
+
+    .mobile-nav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 1.5rem;
+      gap: 1.5rem;
+    }
+
+    .mobile-nav-link {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--color-text-dark);
+      width: 100%;
+      text-align: center;
+      padding: 0.5rem 0;
+      text-decoration: none;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .mobile-nav-link.active {
+      color: var(--color-primary);
+      border-bottom-color: var(--color-primary);
+    }
+
+    .mobile-nav-link.lang-switch-mobile {
+      border: 1px solid var(--color-primary);
+      color: var(--color-primary);
+      border-radius: 9999px;
+      padding: 0.5rem 2rem;
+      width: auto;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border-bottom: 1px solid var(--color-primary);
+    }
+
+    .mobile-drawer-contact {
+      margin-top: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      width: 100%;
+    }
+
+    .drawer-contact-label {
+      font-size: 0.8rem;
+      color: var(--color-text-light);
+      font-weight: 500;
+    }
+
+    .drawer-tel-btn {
+      background-color: var(--color-accent);
+      color: var(--color-bg-white);
+      font-size: 1.35rem;
+      font-weight: 700;
+      font-family: var(--font-sans);
+      padding: 0.75rem 2rem;
+      border-radius: var(--radius-md);
+      width: 100%;
+      text-align: center;
+      max-width: 300px;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(224, 109, 59, 0.2);
+    }
+
+    .drawer-tel-btn:active {
+      background-color: var(--color-accent-dark);
+    }
+
+    .drawer-hours {
+      font-size: 0.8rem;
+      color: var(--color-text-medium);
+      font-weight: 500;
+    }
+
+    /* Menu button active animation toggle */
+    .mobile-menu-btn.open .hamburger-bar:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    .mobile-menu-btn.open .hamburger-bar:nth-child(2) {
+      opacity: 0;
+      transform: scale(0);
+    }
+
+    .mobile-menu-btn.open .hamburger-bar:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+  }
+</style>
+
+<script>
+  function initMobileMenu() {
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const drawer = document.getElementById('mobile-drawer');
+
+    if (!menuBtn || !drawer) return;
+
+    // Remove existing event listeners by replacing button node clones if re-called
+    const newMenuBtn = menuBtn.cloneNode(true) as HTMLButtonElement;
+    menuBtn.parentNode?.replaceChild(newMenuBtn, menuBtn);
+
+    newMenuBtn.addEventListener('click', () => {
+      const isOpen = drawer.classList.contains('open');
+      if (isOpen) {
+        drawer.classList.remove('open');
+        newMenuBtn.classList.remove('open');
+        newMenuBtn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      } else {
+        drawer.classList.add('open');
+        newMenuBtn.classList.add('open');
+        newMenuBtn.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+
+    // Close menu when clicking links
+    const links = drawer.querySelectorAll('.mobile-nav-link');
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        drawer.classList.remove('open');
+        newMenuBtn.classList.remove('open');
+        newMenuBtn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+
+  // Support standard loads and Astro view transition changes
+  initMobileMenu();
+  document.addEventListener('astro:after-swap', initMobileMenu);
+</script>

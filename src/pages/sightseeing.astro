@@ -1,0 +1,276 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+
+// Import local assets for Astro image optimization
+import togakushiImg from '../assets/images/togakushi.jpg';
+import sasagamineImg from '../assets/images/sasagamine.jpg';
+import naenatakiImg from '../assets/images/naenataki.jpg';
+import imoriImg from '../assets/images/imori.jpg';
+import tsubameImg from '../assets/images/tsubame.jpg';
+import sekiImg from '../assets/images/seki.jpg';
+import skyCableImg from '../assets/images/sky-cable.jpg';
+
+const pageTitle = "観光スポット案内 | 高原タクシー株式会社 | 妙高戸隠連山国立公園の旅";
+const pageDescription = "妙高高原周辺の名勝（いもり池、苗名滝、笹ヶ峰高原、燕温泉、関温泉、妙高スカイケーブル、戸隠神社等）をご案内します。各観光エリアまでのタクシー手配、貸切チャーター、登山送迎を承ります。地元の熟練ドライバーが安全にご案内いたします。";
+
+const spots = [
+  {
+    title: "戸隠 (Togakushi)",
+    subtitle: "神秘と歴史が息づく五社とそばの里",
+    desc: "戸隠地区は2015年3月に新しく誕生した「妙高戸隠連山国立公園」に指定されています。戸隠山から高妻山まで急峻な山々に囲まれ、登山フィールドとして高い人気を誇ります。樹齢400年を超える杉並木が続く戸隠神社奥社への参道や、名物の「戸隠そば」が楽しめます。",
+    btnLabel: "戸隠観光協会 公式HP",
+    btnLink: "https://togakushi-21.jp/",
+    imgSrc: togakushiImg,
+    badge: "国立公園"
+  },
+  {
+    title: "笹ヶ峰 (Sasagamine)",
+    subtitle: "標高1,300mに広がる緑豊かな癒やしの高原",
+    desc: "笹ヶ峰高原は、妙高山の南西に位置し、三田原山や黒姫山、高妻山、火打山などの名峰に囲まれた盆地状の美しき高原です。広大な牧場や森林セラピーロード、澄み切った清水など、ハイキングに最適なエリアです。秋には白樺の木々と素晴らしい紅葉のコントラストが広がります。",
+    btnLabel: "妙高観光局 笹ヶ峰高原HP",
+    btnLink: "https://myokotourism.jp/tourist-spots/笹ヶ峰高原/",
+    imgSrc: sasagamineImg,
+    badge: "高原・ハイキング"
+  },
+  {
+    title: "苗名滝 (Naena Falls)",
+    subtitle: "轟音とともに落ちる落差55mの迫力ある滝",
+    desc: "マグマが冷却されたときにできた、柱状節理（ちゅうじょうせつり）が良く発達した落差55メートルの大滝です。別名「地震滝」とも呼ばれ、水量が爆発的になる春の雪解け期は、周囲の森に地響きのような爆音をとどろかせます。夏は清涼な避暑地、秋は紅葉の名所として親しまれています。",
+    btnLabel: "妙高観光局 苗名滝HP",
+    btnLink: "https://myokotourism.jp/tourist-spots/苗名滝/",
+    imgSrc: naenatakiImg,
+    badge: "日本の滝百選"
+  },
+  {
+    title: "いもり池 (Imori Pond)",
+    subtitle: "水面に「逆さ妙高」を映し出す静寂の池",
+    desc: "妙高高原池の平温泉に位置し、周囲は約500m。晴れた風の穏やかな日には、標高2,454mの妙高山を美しく水面に映し出します。春には10万株のミズバショウが咲き誇り、多くの観光客や絵の愛好家で賑わいます。バリアフリーの遊歩道が整備され、一周15分ほどで歩くことができます。",
+    btnLabel: "妙高観光局 いもり池HP", // Fixed original "おもり池" link typo!
+    btnLink: "https://myokotourism.jp/tourist-spots/いもり池/",
+    imgSrc: imoriImg,
+    badge: "みずばしょうの名所"
+  },
+  {
+    title: "燕温泉 (Tsubame Onsen)",
+    subtitle: "岩窟の下から湧き出る雲上の白い秘湯",
+    desc: "標高約1,100m、妙高高原温泉郷の中で最も高い場所に位置する秘湯です。弘法大師が発見したとも伝えられ、古くから親しまれる乳白色の湯が特徴です。渓谷の奥深くには無料の野天風呂「黄金の湯」「河原の湯」があり、大自然に囲まれた中で極上の名湯を楽しむことができます。",
+    btnLabel: "妙高観光局 燕温泉HP",
+    btnLink: "https://myokotourism.jp/tourist-spots/燕温泉/",
+    imgSrc: tsubameImg,
+    badge: "秘湯・露天風呂"
+  },
+  {
+    title: "関温泉 (Seki Onsen)",
+    subtitle: "赤い鉄分を含んだ名湯と紅葉燃える渓谷",
+    desc: "関温泉は、開湯1000年を超える歴史ある温泉地で、赤い鉄分を豊富に含んだ茶褐色の源泉が特徴です。周辺の渓谷は四季折々に美しい表情を見せ、特に関温泉近くの不動大橋の下にある「不動滝」は、新緑や紅葉の時期に訪れる者の目を楽しませてくれます。(※元のホームページの誤記を修正しました。)",
+    btnLabel: "妙高観光局 関温泉HP", // Fixed original Fudou Falls button text/link mismatch!
+    btnLink: "https://myokotourism.jp/tourist-spots/関温泉/",
+    imgSrc: sekiImg,
+    badge: "名湯・歴史の温泉"
+  },
+  {
+    title: "スカイケーブル (Sky Cable)",
+    subtitle: "標高1,300mへ続く11分間の絶景空中散歩",
+    desc: "妙高の大自然の中、妙高高原から標高1,300mの展望レストランまでを結ぶゴンドラです。全面ガラス張りのゴンドラからは、遠く志賀高原・野沢温泉の山並みから斑尾山、さらには野尻湖まで一望の大パノラマが広がります。山頂駅周辺にはハイキングコースやブナの森遊歩道も整備されています。",
+    btnLabel: "妙高高原スカイケーブル公式",
+    btnLink: "https://akr-sky.com/",
+    imgSrc: skyCableImg,
+    badge: "空中散歩"
+  }
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} lang="ja" canonicalPath="/sightseeing/">
+
+  <!-- Page Header -->
+  <section class="page-hero">
+    <div class="container text-center">
+      <span class="section-subtitle">妙高戸隠連山国立公園</span>
+      <h1 class="page-title">妙高高原 観光スポット</h1>
+      <p class="page-lead">「妙高戸隠連山国立公園」に囲まれた、息をのむ大自然の絶景スポットを高原タクシーがご案内いたします。</p>
+    </div>
+  </section>
+
+  <!-- Sightseeing Content Grid -->
+  <section class="sightseeing-section section-padding">
+    <div class="container">
+      
+      <!-- General Taxi Charter Banner -->
+      <div class="charter-banner">
+        <div class="charter-text">
+          <h3>観光貸切タクシーのご案内</h3>
+          <p>
+            「どの順番で回れば効率的か分からない」「登山道から温泉までスムーズに移動したい」など、お客様の希望に合わせて最適な観光ルートをご提案いたします。重い荷物を持たずに貸切タクシーで快適な旅をお楽しみください。
+          </p>
+        </div>
+        <div class="charter-action">
+          <a href="tel:0255-86-3141" class="btn btn-accent">📞 観光チャーターのご相談</a>
+        </div>
+      </div>
+
+      <!-- Spot Cards Grid -->
+      <div class="grid grid-3 sightseeing-grid">
+        {spots.map(spot => (
+          <div class="card spot-card">
+            <div class="card-img-wrapper">
+              <Image src={spot.imgSrc} alt={`${spot.title} - ${spot.subtitle}`} class="card-img" width={600} height={380} quality="high" />
+              <span class="spot-badge">{spot.badge}</span>
+            </div>
+            
+            <div class="card-content">
+              <span class="spot-card-sub">{spot.subtitle}</span>
+              <h3 class="card-title">{spot.title}</h3>
+              <p class="card-description">{spot.desc}</p>
+              
+              <div class="card-action">
+                <a href={spot.btnLink} target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm spot-link-btn">
+                  {spot.btnLabel} <span class="arrow">→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* Page Hero styles */
+  .page-hero {
+    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+    color: var(--color-bg-white);
+    padding: 5rem 0;
+    text-align: center;
+  }
+
+  .page-hero .section-subtitle {
+    color: var(--color-accent);
+  }
+
+  .page-hero h1 {
+    color: var(--color-bg-white);
+    font-size: 3rem;
+    font-weight: 900;
+  }
+
+  .page-lead {
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 700px;
+    margin: 1rem auto 0 auto;
+  }
+
+  /* Charter banner */
+  .charter-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color-bg-white);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-border);
+    margin-bottom: 4rem;
+    gap: 3rem;
+  }
+
+  .charter-text h3 {
+    font-size: 1.5rem;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .charter-text p {
+    font-size: 0.95rem;
+    color: var(--color-text-medium);
+    line-height: 1.6;
+  }
+
+  .charter-action {
+    flex-shrink: 0;
+  }
+
+  .charter-action .btn {
+    white-space: nowrap;
+    padding: 1rem 2.25rem;
+    font-size: 1.05rem;
+  }
+
+  /* Spot card specifics */
+  .spot-card {
+    height: 100%;
+    background-color: var(--color-bg-white);
+    border: 1px solid var(--color-border);
+  }
+
+  .spot-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background-color: rgba(224, 109, 59, 0.9);
+    color: var(--color-bg-white);
+    padding: 0.35rem 0.85rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 9999px;
+    backdrop-filter: blur(4px);
+    z-index: 5;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .spot-card-sub {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: 0.25rem;
+    letter-spacing: 0.05em;
+  }
+
+  .spot-link-btn {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.85rem;
+    border-radius: var(--radius-sm);
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .spot-link-btn .arrow {
+    transition: transform 0.3s ease;
+  }
+
+  .spot-link-btn:hover .arrow {
+    transform: translateX(4px);
+  }
+
+  /* Responsiveness */
+  @media (max-width: 992px) {
+    .charter-banner {
+      flex-direction: column;
+      gap: 1.5rem;
+      text-align: center;
+      padding: 2rem;
+    }
+    .charter-action {
+      width: 100%;
+    }
+    .charter-action .btn {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .page-hero {
+      padding: 4.5rem 0;
+    }
+    .page-hero h1 {
+      font-size: 2.25rem;
+    }
+    .charter-text h3 {
+      font-size: 1.3rem;
+    }
+  }
+</style>
