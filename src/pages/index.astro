@@ -246,7 +246,7 @@ const pageDescription = "妙高高原で60年以上の歴史を持つ「高原�
         <!-- Ride Share Recruitment -->
         <div class="card recruit-card">
           <div class="recruit-img-wrapper">
-            <Image src={rideShareImg} alt="高原タクシー ライドシェア運転士募集チラシ" class="card-img" style="object-fit: contain;" widths={[400, 640, 960, 1252]} sizes="(max-width: 640px) calc(100vw - 3rem), (max-width: 1048px) calc((100vw - 5.5rem) / 2), 480px" quality="high" />
+            <Image src={rideShareImg} alt="高原タクシー ライドシェア運転士募集チラシ" class="card-img" widths={[400, 640, 960, 1252]} sizes="(max-width: 640px) calc(100vw - 3rem), (max-width: 1048px) calc((100vw - 5.5rem) / 2), 480px" quality="high" />
           </div>
           <div class="card-content">
             <span class="badge badge-accent">NEW</span>
@@ -261,7 +261,7 @@ const pageDescription = "妙高高原で60年以上の歴史を持つ「高原�
         <!-- Taxi Driver Recruitment -->
         <div class="card recruit-card">
           <div class="recruit-img-wrapper">
-            <Image src={recruitImg} alt="高原タクシー タクシー乗務員（運転士）募集案内チラシ" class="card-img" width={500} height={650} />
+            <Image src={recruitImg} alt="高原タクシー タクシー乗務員（運転士）募集案内チラシ" class="card-img" widths={[400, 640, 960, 1536]} sizes="(max-width: 640px) calc(100vw - 3rem), (max-width: 1048px) calc((100vw - 5.5rem) / 2), 480px" quality="high" />
           </div>
           <div class="card-content">
             <span class="badge badge-primary">REGULAR</span>
@@ -872,6 +872,7 @@ const pageDescription = "妙高高原で60年以上の歴史を持つ「高原�
 
   .recruit-grid {
     gap: 2.5rem;
+    grid-auto-rows: 1fr;
     max-width: 1000px;
     margin: 0 auto;
   }
@@ -882,14 +883,22 @@ const pageDescription = "妙高高原で60年以上の歴史を持つ「高原�
   }
 
   .recruit-img-wrapper {
-    height: 380px;
+    aspect-ratio: 24 / 19;
+    flex-shrink: 0;
+    background-color: var(--color-bg-light);
     overflow: hidden;
   }
 
   .recruit-img-wrapper img {
+    display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .recruit-card:hover .card-img {
+    transform: none;
   }
 
   .recruit-card .badge {
@@ -990,8 +999,5 @@ const pageDescription = "妙高高原で60年以上の歴史を持つ「高原�
       white-space: normal;
     }
 
-    .recruit-img-wrapper {
-      height: 280px;
-    }
   }
 </style>
